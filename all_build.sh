@@ -28,7 +28,7 @@ function build_version
     cd build_all
     conda activate "__${1}"
 
-    cmake -DCMAKE_TOOLCHAIN_FILE="${VCPKG_PATH}" ../
+    cmake -DCMAKE_TOOLCHAIN_FILE="${VCPKG_PATH}" -DPYBIND11_PYTHON_VERSION=${1} ../
     make
 
     mkdir -p ../build_binaries
