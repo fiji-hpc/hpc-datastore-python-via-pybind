@@ -82,11 +82,11 @@ set(LIBS ${LIBS} rxspencer)
 # I3D library
 set(STATIC_DIR "${CMAKE_SOURCE_DIR}/extern/hpc-datastore-cpp/static_i3dlib")
 set(LIBS "${STATIC_DIR}/libs/libi3dcore.a" "${STATIC_DIR}/libs/libi3dalgo.a" ${LIBS})
-set(INCL_DIRS "${STATIC_DIR}/includes")
+set(INCL_DIRS ${INCL_DIRS} "${STATIC_DIR}/includes")
 
 # Pybind11 library
 add_subdirectory("${CMAKE_SOURCE_DIR}/extern/pybind11")
-set(INCL_DIRS "${CMAKE_SOURCE_DIR}/extern/pybind11/include")
+set(INCL_DIRS ${INCL_DIRS} "${CMAKE_SOURCE_DIR}/extern/pybind11/include")
 
 set(MODULE_NAME "hpc_datastore")
 pybind11_add_module(${MODULE_NAME} src/main.cpp)
