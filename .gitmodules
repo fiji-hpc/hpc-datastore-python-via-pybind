@@ -2,3 +2,7 @@
 	path = extern/pybind11
 	url = ../../pybind/pybind11
 	branch = stable
+[submodule "extern/hpc-datastore-cpp"]
+	path = extern/hpc-datastore-cpp
+	url = https://github.com/somik861/hpc-datastore-cpp
+	branch = main
