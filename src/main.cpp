@@ -1,4 +1,4 @@
-#include "../../../src/hpc_ds_api.hpp"
+#include "../extern/hpc-datastore-cpp/src/hpc_ds_api.hpp"
 #include "custom_casters.hpp"
 #include "wrappers.hpp"
 #include <pybind11/numpy.h>
