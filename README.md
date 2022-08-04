@@ -15,6 +15,9 @@ Download (or build) module and insert it into your python project. If you have g
 import module just like any other, that is: **import hpc_datastore**
 
 ## Building from source
+It is important to mention, that project is using C++20 and you will need *gcc-11.3.0* or newer (*gcc-12.1.0* is also fine).
+I did not test *clang++*.
+
 To obtain all sources, run `git submodule update --init`.
 
 Make sure you have working [vcpkg](https://github.com/microsoft/vcpkg-tool) installation. Everything except *i3d library* 
@@ -34,3 +37,6 @@ These scripts are developer-friendly scripts that use *anaconda* to create all n
 all needed binaries in one click. These scripts are used for generating provided binaries and you do not need to worry about them.
 (On the other hand, if you still want to use them, make sure to *source* them inside your bash shell, otherwise anaconda
 eviromnent will not be functional). 
+
+## Redistribution with project
+You will ofcourse need to ship binaries with your project (Or you can create a script that downloads your need binaries depending on your system). Pre-build binaries are built with older system in mind, so you should have no problems using them on not-ancient.
