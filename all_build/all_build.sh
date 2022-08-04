@@ -41,7 +41,7 @@ function build_version
 
 PY_VERSIONS="3.6 3.7 3.8 3.9 3.10"
 
-
+cd ..
 for VER in $PY_VERSIONS
 do
     echo "Building version: ${VER}"
