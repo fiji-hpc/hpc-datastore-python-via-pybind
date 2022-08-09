@@ -1,13 +1,9 @@
 cmake_minimum_required(VERSION 3.18)
 
-IF (WIN32)
-set(VCPKG_CRT_LINKAGE static)
-set(VCPKG_LIBRARY_LINKAGE static)
-set(VCPKG_TARGET_TRIPLET x64-windows-static)
-ELSE(WIN32)
+IF (NOT WIN32)
 set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
-ENDIF(WIN32)
+ENDIF(NOT WIN32)
 
 project(HPC_Datastore_pybind CXX)
 
@@ -57,9 +53,12 @@ set(LIBS ${LIBS} ${JPEG_LIBRARIES})
 
 # PNG library
 find_package(libpng CONFIG REQUIRED)
+IF (WIN32)
+	SET(LIBS ${LIBS} png)
+ELSE(WIN32)
+	SET(LIBS ${LIBS} png_static)
+ENDIF(WIN32)
 
-
-set(LIBS ${LIBS} png_static)
 
 # ICS library
 find_package(libics CONFIG REQUIRED)
@@ -71,9 +70,12 @@ set(LIBS ${LIBS} ZLIB::ZLIB)
 
 # HDF5 library
 find_package(hdf5 CONFIG REQUIRED)
+IF (WIN32)
+	SET(LIBS ${LIBS} hdf5::hdf5-shared hdf5::hdf5_hl-shared)
+ELSE(WIN32)
+	SET(LIBS ${LIBS} hdf5::hdf5-static hdf5::hdf5_hl-static)
+ENDIF(WIN32)
 
-
-set(LIBS ${LIBS} hdf5::hdf5-static hdf5::hdf5_hl-static)
 
 # RXSpencer library
 find_package(RXSpencer CONFIG REQUIRED)
@@ -95,7 +97,7 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/extern/pybind11")
 set(INCL_DIRS ${INCL_DIRS} "${CMAKE_SOURCE_DIR}/extern/pybind11/include")
 
 set(MODULE_NAME "hpc_datastore")
-pybind11_add_module(${MODULE_NAME} MODULE src/main.cpp)
+pybind11_add_module(${MODULE_NAME} src/main.cpp)
 target_link_libraries(${MODULE_NAME} PUBLIC ${LIBS})
 target_include_directories(${MODULE_NAME} SYSTEM PUBLIC ${INCL_DIRS})
 
