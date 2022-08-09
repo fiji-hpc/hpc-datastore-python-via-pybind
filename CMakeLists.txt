@@ -58,11 +58,8 @@ set(LIBS ${LIBS} ${JPEG_LIBRARIES})
 # PNG library
 find_package(libpng CONFIG REQUIRED)
 
-if(WIN32)
-	set(LIBS ${LIBS} png)
-else(WIN32)
-	set(LIBS ${LIBS} png_static)
-endif(WIN32)
+
+set(LIBS ${LIBS} png_static)
 
 # ICS library
 find_package(libics CONFIG REQUIRED)
@@ -75,11 +72,8 @@ set(LIBS ${LIBS} ZLIB::ZLIB)
 # HDF5 library
 find_package(hdf5 CONFIG REQUIRED)
 
-if(WIN32)
-	set(LIBS ${LIBS} hdf5::hdf5-shared hdf5::hdf5_hl-shared)
-else(WIN32)
-	set(LIBS ${LIBS} hdf5::hdf5-static hdf5::hdf5_hl-static)
-endif(WIN32)
+
+set(LIBS ${LIBS} hdf5::hdf5-static hdf5::hdf5_hl-static)
 
 # RXSpencer library
 find_package(RXSpencer CONFIG REQUIRED)
