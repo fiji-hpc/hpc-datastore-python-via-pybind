@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/somik/CBIA/hpc-datastore-cpp-pybind'
+make: Leaving directory '/home/somik/CBIA/hpc-datastore-cpp-pybind'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

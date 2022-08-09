@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.18)
 
+IF (WIN32)
+set(VCPKG_CRT_LINKAGE static)
+set(VCPKG_LIBRARY_LINKAGE static)
+ELSE(WIN32)
 set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+ENDIF(WIN32)
 
 project(HPC_Datastore_pybind CXX)
 
@@ -81,7 +86,13 @@ set(LIBS ${LIBS} rxspencer)
 
 # I3D library
 set(STATIC_DIR "${CMAKE_SOURCE_DIR}/extern/hpc-datastore-cpp/static_i3dlib")
+
+IF (WIN32)
+set(LIBS "${STATIC_DIR}/libs/cbia.lib.i3dalgo.dyn.rel.x64.16.lib" "${STATIC_DIR}/libs/cbia.lib.i3dcore.dyn.rel.x64.16.lib" ${LIBS})
+ELSE (WIN32)
 set(LIBS "${STATIC_DIR}/libs/libi3dcore.a" "${STATIC_DIR}/libs/libi3dalgo.a" ${LIBS})
+ENDIF(WIN32)
+
 set(INCL_DIRS ${INCL_DIRS} "${STATIC_DIR}/includes")
 
 # Pybind11 library
@@ -89,10 +100,15 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/extern/pybind11")
 set(INCL_DIRS ${INCL_DIRS} "${CMAKE_SOURCE_DIR}/extern/pybind11/include")
 
 set(MODULE_NAME "hpc_datastore")
-pybind11_add_module(${MODULE_NAME} src/main.cpp)
+pybind11_add_module(${MODULE_NAME} MODULE src/main.cpp)
 target_link_libraries(${MODULE_NAME} PUBLIC ${LIBS})
 target_include_directories(${MODULE_NAME} SYSTEM PUBLIC ${INCL_DIRS})
 
 # add compile options
 set_target_properties(${MODULE_NAME} PROPERTIES CXX_STANDARD 20)
+
+IF (WIN32)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
+ELSE (WIN32)
 set_target_properties(${MODULE_NAME} PROPERTIES COMPILE_FLAGS "-Wall -Wextra -Wconversion -fmax-errors=1 -g -O2 -fPIC")
+ENDIF(WIN32)
