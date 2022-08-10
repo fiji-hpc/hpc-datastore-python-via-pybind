@@ -1,10 +1,16 @@
 import sys
 from typing import List
 import distutils.sysconfig
-import requests  # type: ignore
 from os import path
 
-BINARIES_PATH = 'https://github.com/somik861/hpc-datastore-cpp-pybind/tree/main/binaries'
+try:
+    import requests  # type: ignore
+except ModuleNotFoundError:
+    print('Please install requests package using: pip3 install requests')
+    exit(1)
+
+
+BINARIES_PATH = 'https://github.com/somik861/hpc-datastore-cpp-pybind/blob/main/binaries/'
 
 
 def get_files_url() -> List[str]:
@@ -43,11 +49,37 @@ def get_files_url() -> List[str]:
     return out
 
 
+def download_files(urls: List[str], prefixes: List[str]) -> None:
+    for url in urls:
+        filename = path.basename(url)
+        print(f"Downloading {filename} ... ", end='', flush=True)
+
+        full_url = url + '?raw=true'
+        req = requests.get(full_url)
+        for prefix in prefixes:
+            open(path.join(prefix, filename), 'wb').write(req.content)
+
+        print("[OK]")
+
+
 def main():
+
     urls = get_files_url()
     if not urls:
         print("Your system is not supported")
         exit(1)
+
+    prefixes: list[str] = []
+
+    if len(sys.argv) == 1:
+        for syspath in sys.path:
+            if 'dynload' in syspath:
+                prefixes.append(syspath)
+                break
+
+    prefixes.extend(sys.argv[1:])
+
+    download_files(urls, prefixes)
 
 
 if __name__ == '__main__':
