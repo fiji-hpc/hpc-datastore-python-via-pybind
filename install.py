@@ -83,7 +83,7 @@ def main():
 
     if len(sys.argv) == 1:
         for syspath in sys.path:
-            if 'dynload' in syspath:
+            if 'dynload' in syspath or 'DLLs' in syspath:
                 prefixes.append(syspath)
                 break
 
