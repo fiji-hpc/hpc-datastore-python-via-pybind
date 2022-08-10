@@ -66,6 +66,9 @@ def download_files(urls: List[str], prefixes: List[str]) -> None:
 
         full_url = url + '?raw=true'
         req = requests.get(full_url)
+        if req.status_code == 200:
+            print("[Error]")
+
         for prefix in prefixes:
             open(path.join(prefix, filename), 'wb').write(req.content)
 
