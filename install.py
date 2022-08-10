@@ -41,7 +41,7 @@ def get_files_url() -> List[str]:
             'PocoJSON.dll',
             'PocoNet.dll',
             'cbia.lib.i3dalgo.dyn.rel.x64.16.dll',
-            'cbia.lib.i3dalgo.dyn.rel.x64.16.dll',
+            'cbia.lib.i3dcore.dyn.rel.x64.16.dll',
             'fmt.dll',
             'hdf5.dll',
             'hdf5_hl.dll',
