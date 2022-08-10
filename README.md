@@ -10,13 +10,24 @@ otherwise, you will not be able to import the module. In some special cases, whe
 you also have an option do build module from source. That way, you can be sure that the module will work on your machine.
 I will try to make sure, that binaries are recompiled for every bigger update.
 
-### Linux
+### Automatic install
+Download [install.py](install.py) file from root of the repository.
+You may need to install *requests* package from **pip**.
+
+Running `python3 ./install.py` will detect files needed by your system and install them into your enviromnent.
+Sometimes it is not wanted (or permitted) to change the entire enviromnent, therefore, you can specify arbitrary number of arguments
+representing directories to which the files shall be downloaded. (e. g. `python3 ./install path1 path2`) Note that when specifying arguments, the files will not be placed into the global enviroment.
+
+### Manual Install
+Follow this, if the automatic way does not work for you.
+
+#### Linux
 To use prebuilt library on linux, simply download corresponding file from [binaries/linux](binaries/linux), place it into your project
 and import it as usual (`import hpc_datastore`).
 
-### Windows
-To use prebuilt library on windows, download library file from [binaries/windows](binaries/windows) and place it into your project.
-You will also need all DLLs located at [binaries/windows/dlls](binaries/windows/dlls). Place DDLs into the same directory as downloaded binary.
+#### Windows
+To use prebuilt library on windows, download library file from [binaries/win32](binaries/win32) and place it into your project.
+You will also need all DLLs located at [binaries/win32/dlls](binaries/win32/dlls). Place DDLs into the same directory as downloaded binary.
 It is reccommended to put binary with DLLs into subfolder. If you want pack more binaries into your project (e. g. for compatibilty), you can place all of them into one subfolder (DLLs will be shared). After all of that, import library as usual (`import hpc_datastore`).
 
 ## Installation
