@@ -13,11 +13,21 @@ except ModuleNotFoundError:
 BINARIES_PATH = 'https://github.com/somik861/hpc-datastore-cpp-pybind/blob/main/binaries/'
 
 
+def url_join(*args) -> str:
+    final = ''
+    for url in args:
+        if not final.endswith('/') and final:
+            final += '/'
+        final += url
+
+    return final
+
+
 def get_files_url() -> List[str]:
     module_name = 'hpc_datastore'
     suffix: str = distutils.sysconfig.get_config_var('EXT_SUFFIX')
     file_name = module_name + suffix
-    url = path.join(BINARIES_PATH, sys.platform, file_name)
+    url = url_join(BINARIES_PATH, sys.platform, file_name)
 
     req = requests.get(url)
     if (req.status_code == 404):
@@ -44,14 +54,14 @@ def get_files_url() -> List[str]:
             'tiff.dll',
             'zlib1.dll',
         ]:
-            out.append(path.join(BINARIES_PATH, sys.platform, 'dlls', dll))
+            out.append(url_join(BINARIES_PATH, sys.platform, 'dlls', dll))
 
     return out
 
 
 def download_files(urls: List[str], prefixes: List[str]) -> None:
     for url in urls:
-        filename = path.basename(url)
+        filename = url.split('/')[-1]
         print(f"Downloading {filename} ... ", end='', flush=True)
 
         full_url = url + '?raw=true'
