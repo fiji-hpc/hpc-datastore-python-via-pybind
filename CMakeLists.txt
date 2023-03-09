@@ -5,7 +5,7 @@ set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
 ENDIF(NOT WIN32)
 
-project(HPC_Datastore_pybind CXX)
+project(HPC_Datastore_pybind C CXX)
 
 # disable info message print
 add_compile_options(-DDATASTORE_NINFO)
