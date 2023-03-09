@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.15)
 
 IF (NOT WIN32)
 set(CMAKE_CXX_COMPILER g++)
